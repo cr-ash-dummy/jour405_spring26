@@ -9,7 +9,7 @@ In this assignment, we will be working with a dataset reporting the number of cr
 You will need to load the tidyverse library
 
 ```{r}
-
+library(tidyverse)
 ```
 
 Then you'll load the data from the web. The URL for the data is: https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/pg_crime_totals_2024.csv. You will create a dataframe called `pg_crime` that contains the data from this URL.
@@ -17,12 +17,13 @@ Then you'll load the data from the web. The URL for the data is: https://raw.git
 ### Task 2: Load the Data and Describe It
 
 ```{r}
+pg_crime <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/pg_crime_totals_2024.csv")
 ```
 ### Task 3: Describe the Data
 
 You should examine that dataframe carefully by clicking on it in the Environment tab in RStudio. Write a couple of sentences describing the categories of incidents. From a reporting standpoint, are any of the categories more important than others? Why or why not? Do any of them make the job of summarizing the data more difficult? Why or why not?
 
-ANSWER HERE
+The incidents are organized alphabetically. Some categories are broader than others; there are four categories regarding different types of robbery and only one for sex crimes. Others have specific modifiers, like AUTO STOLEN and AUTO STOLEN & RECOVERED, meaning both categories must be combined to find the total number of attempted car thefts. Which categories are most important is a highly subjective question and would depend on the audience and the general angle of the piece. 
 
 ### Task 4: Calculating Averages
 
@@ -30,6 +31,8 @@ Calculate the total number of incidents per month for each category using `mutat
 
 ```{r}
 
+
+total_incidents <- pg_crime |> mutate(sum(`Jan`,`Feb`,`Mar`,`Apr`,`May`,`Jun`,`Jul`,`Sep`,`Oct`,`Nov`,`Dec`))
 ```
 
 ### Task 5: Describe the Averages
