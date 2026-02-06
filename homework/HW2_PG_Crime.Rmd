@@ -30,16 +30,16 @@ The incidents are organized alphabetically. Some categories are broader than oth
 Calculate the total number of incidents per month for each category using `mutate()`, calling the new column `total_incidents`. Then calculate the average number of incidents per month for each category of crime, calling the new column `average_incidents`. Assign the result to a new dataframe called `pg_crime_averages`.
 
 ```{r}
+pg_crime <- pg_crime |> mutate(total_incidents = `Jan`+`Feb`+`Mar`+`Apr`+`May`+`Jun`+`Jul`+`Sep`+`Oct`+`Nov`+`Dec`)
 
-
-total_incidents <- pg_crime |> mutate(sum(`Jan`,`Feb`,`Mar`,`Apr`,`May`,`Jun`,`Jul`,`Sep`,`Oct`,`Nov`,`Dec`))
+pg_crime_averages <- pg_crime |> mutate(average_incidents = (`Jan`+`Feb`+`Mar`+`Apr`+`May`+`Jun`+`Jul`+`Sep`+`Oct`+`Nov`+`Dec`)/12)
 ```
 
 ### Task 5: Describe the Averages
 
 Examine the new dataframe, `pg_crime_averages`, by clicking on it in the Environment tab in RStudio. Write a couple of sentences describing the average number of incidents per month for each category. Which categories have the highest average number of incidents per month? Which have the lowest? What does this tell you about the pattern of crime in Prince George's County? Are there categories that you have questions about? Why or why not?
 
-ANSWER HERE
+Accidents, stolen cars and theft from cars have the highest averages of all categories, while "other" breaking and entering, homicide, and "other" robbery have the lowest. This demonstrates that cars are relatively unsafe, both in terms of driving and due to their vulnerability to theft. I'm confused what the "other" tag means for both breaking and entering and robbery; what kinds of places get robbed that don't fall under residential or commercial?
 
 
 ### Task 6: Testing a Theory
@@ -47,19 +47,23 @@ ANSWER HERE
 One theory about crime is that it is more likely to occur in the summer months. Test this theory by creating three new columns using `mutate()` that calculate the percentage change compared to the average for each category of crime for the months of June, July, and August. Call the new columns `june_change`, `july_change`, and `august_change`. Assign the result to a new dataframe called `summer_crime_averages`.
 
 ```{r}
+summer_crime_averages <- pg_crime_averages |> mutate(june_change = (`Jun`-`average_incidents`)/`average_incidents`*100, july_change = (`Jul`-`average_incidents`)/`average_incidents`*100, august_change = (`Aug`-`average_incidents`)/`average_incidents`*100)
 ```
 
 ### Task 7: Describe the Summer Crime Averages
 
 Look at the `summer_crime_averages` dataframe by clicking on it in the Environment tab in RStudio. Write a couple of sentences describing the percentage change in the average number of incidents per month for each category of crime for the months of June, July, and August. Do you see any patterns? What does this tell you about the theory that crime is more likely to occur in the summer months?
 
-ANSWER HERE
+There is some value to the theory. Assault shooting saw a massive spike during July and August, rising by about 50% during both months. Car thefts were consistently higher by 15-20% across the summer, as were thefts from cars. Homicides spiked by an even higher margin, hitting 52% in June before dropping to 33% for both July and August. Some crimes show little correlation or even a drop, like other breaking and entering, which is in the negatives for all three months.
+
 
 ### Task 8: What's the Story?
 
 Write up a lede and nutgraf of a story focused on the crime data in Prince George's County. It could be from any of the dataframes you've created in this assignment. The lede should be a single sentence that summarizes the most important information in the data. The nutgraf should be a paragraph that provides more context and explains why the data is important.
 
-ANSWER HERE
+New statistics homicides spike during summer months, per the Prince George's County Police Department.
+
+In new crime statistics released for the year of 2025, the average number of homicides per month was only 5. Incidents jumped to 8 in June and 7 in July and August, an increase of 52% and 33% respectively. This leap leads credence to the common theory that violent crime increases during the summer months. Other crimes saw increases during the summer as well, including car thefts.
 
 ### Task 9: Save Your Work and Put it on GitHub
 
