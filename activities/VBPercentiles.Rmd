@@ -37,6 +37,7 @@ team_aces |> mutate(percentile = ntile(total_aces, 100))
 
 Write a couple of sentences that puts Maryland into context with the other teams in the dataset. You can do some Internet research to help with this.
 
+Maryland is in the 95th percentile for aces in volleyball games, meaning we scored more or the same amount of aces as 95% of other teams, and 5% of teams scored more than us. When ranked solely by number of aces, Maryland is #17 overall. In volleyball, an ace is a serve that immediately scores, meaning the other team doesn't return it. Getting an ace means the opposing team can't defend against you. So Maryland must have a strong offense that's good at cracking opposing defense.
 
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
