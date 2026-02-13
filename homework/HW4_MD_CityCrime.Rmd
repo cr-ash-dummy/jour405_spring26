@@ -9,6 +9,7 @@ In this assignment, we will be working with a dataset of total crimes reported b
 You will need to load the tidyverse library and the janitor library
 
 ```{r}
+library(tidyverse)
 ```
 
 Then you'll load the data from the web. The URL for the data is: https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/md_cities_crime_2019_2020.csv. You will create a dataframe called `md_cities` that contains the data from this URL.
@@ -16,19 +17,21 @@ Then you'll load the data from the web. The URL for the data is: https://raw.git
 ### Task 2: Load the Data
 
 ```{r}
+md_cities <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/md_cities_crime_2019_2020.csv")
 ```
 ### Task 3: Calculating Rates
 
 Calculate violent and property crime rates for each city for both years using `mutate()`. You'll create four new columns: `violent_rate_2019`, `property_rate_2019`, `violent_rate_2020`, and `property_rate_2020`. You'll need to figure out the proper unit rate, given that there are varying populations. There's no perfect choice; choose the one that works best for you. Save the results to a new dataframe called `md_cities_rates`.
 
 ```{r}
+md_cities_rates <- md_cities |> mutate(violent_rate_2019 = `violent2019`/`pop2019` *1000, property_rate_2019 = `property2019`/`pop2019` *1000, violent_rate_2020 = `violent2020`/`pop2020` *1000, property_rate_2020 = `property2020`/`pop2020` *1000) 
 ```
 
 ### Task 4: Describe the Rates
 
 Examine the new dataframe, `md_cities_rates`, by clicking on it in the Environment tab in RStudio and sorting by the rate columns. Write a couple of sentences about the results, comparing and contrasting the cities with the highest rates (both violent and property) in 2019 and 2020. Do you see any patterns? What does this tell you about crime in Maryland cities? What's the story here?
 
-ANSWER HERE
+Unsuprisingly, property crime is generally higher than violent crime, and crime overall dropped in 2020, though often not as much as I'd expect. Property crime actually increased during 2020 in a few cities. In Landover Hills, it jumped from 47 crimes per 1000 people to 56. In Ocean City, property crime and violent crime both increased during 2020. Property crime is insanely high in Ocean City over all, which makes me wonder what could possibly be going on there. Sure, it's full of rowdy beach people, but a jump from 103 per every 1000 to 121 per every 1000 is shocking. Do they have particularly stringent property crime laws there, or are vacationers just that wild?
 
 
 ### Task 5: Calculate Percentage Change
@@ -36,19 +39,22 @@ ANSWER HERE
 Let's add two percentage change columns to your dataframe: one for violent crime rates and one for property crime rates. You'll calculate the percentage change between 2019 and 2020 for each city. Save the results to a new dataframe called `md_cities_change`.
 
 ```{r}
+md_cities_change <- md_cities_rates |> mutate(violent_change = (`violent_rate_2020`-`violent_rate_2019`)/`violent_rate_2019`*100, property_change = (`property_rate_2020`-`property_rate_2019`)/`property_rate_2019`*100)
 ```
 
 ### Task 7: Describe Percentage Changes
 
 Look at the `md_cities_change` dataframe by clicking on it in the Environment tab in RStudio. Write a couple of sentences describing the percentage change results. What's more interesting here, the patterns or the outliers? What's the story in the data?
 
-ANSWER HERE
+A lot more crime rates increased during 2020 than I noticed, some by an incredibly high margin. Violent crimes in Poolesville jumped by over 600%, though the actual number changed from 1 to 7. Violent crime increased in Edmonston by a whopping 895%. Spikes in violent crime are generally more extreme than in property crime, likely because of fewer overall incidents. I'm obviously more drawn to outliers, but it's because I'm struggling to identify a trend in the data; I think I see about equal numbers of positive and negative change.
 
 ### Task 8: Tell the Best Story
 
 Write up a lede and nutgraf of a story with the _best_ story idea you've found in this assignment. The lede should be a single sentence that summarizes the most important information in the data. The nutgraf should be a paragraph that provides more context and explains why the data is important.
 
-ANSWER HERE
+Violent crime spiked in 2020 in some Maryland cities, according to new data.
+
+New crime statistics show violent crime saw sharp increases during 2020 in spite of the COVID-19 pandemic in some cities and towns in Maryland. The trend affected cities across the state, including in Poolesville, Montgomery County; Kensington, Montgomery County; Pocomoke City, Worcester County; Snow Hill, Worcester County and North Beach, Calvert County. These sharp increases are partially owed to the small populations of affected cities. All cities listed experienced crime rate increases of over 100% while boasting populations between 1,000 and 6,000. All the same, the dramatic increases raise questions about local responses to the COVID-19 pandemic.
 
 ### Task 9: Save Your Work and Put it on GitHub
 
