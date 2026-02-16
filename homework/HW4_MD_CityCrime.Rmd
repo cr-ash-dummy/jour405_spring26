@@ -59,3 +59,23 @@ New crime statistics show violent crime saw sharp increases during 2020 in spite
 ### Task 9: Save Your Work and Put it on GitHub
 
 Save this notebook, then commit it to your local repository. Push the changes to your GitHub repository and submit the URL for this file in ELMS.
+
+### Task 10
+
+### Using the 2020 violent crime rate, calculate the percentiles using `ntile()`. Save the results to a new dataframe called `md_cities_percentiles`. How many cities are above the 90th percentile?
+
+```{r}
+md_cities_percentiles <- md_cities_rates |> mutate(percentile = ntile(violent_rate_2020, 100))
+```
+
+There are 10 cities above the 90th percentile.
+
+### Calculate the Interquartile Range of the 2020 violent crime rate using `summarize()` and R's `IQR()` function. The syntax is similar to how `mean()` works.
+
+```{r}
+md_cities_percentiles |> summarize(IQR(violent_rate_2020))
+```
+
+### Do the results change your best story idea from the previous assignment? Why or why not?
+
+I have a feeling I calculated the IQR wrong, but no. Ocean City is in the 100th percentile for violent crime, which was my original story idea.
