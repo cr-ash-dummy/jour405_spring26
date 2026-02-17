@@ -73,7 +73,7 @@ There are 10 cities above the 90th percentile.
 ### Calculate the Interquartile Range of the 2020 violent crime rate using `summarize()` and R's `IQR()` function. The syntax is similar to how `mean()` works.
 
 ```{r}
-md_cities_percentiles |> summarize(IQR(violent_rate_2020))
+md_cities_percentiles |> summarize(IQR = IQR(violent_rate_2020))
 ```
 
 ### Do the results change your best story idea from the previous assignment? Why or why not?
