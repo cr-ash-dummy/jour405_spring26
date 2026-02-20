@@ -7,11 +7,13 @@ In this assignment, you will be working with a dataset of songs played on Spotif
 ### Task 1: Load the tidyverse
 
 ```{r}
+library(tidyverse)
 ```
 
 ### Task 2: Load the Spotify Songs dataset from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/spotify_2020.csv
 
 ```{r}
+spotify <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/spotify_2020.csv")
 ```
 
 ### Task 3: Calculate the mean and standard deviation of the danceability scores
@@ -19,6 +21,7 @@ In this assignment, you will be working with a dataset of songs played on Spotif
 Write code to calculate the mean standard deviation of the danceability scores in the Spotify dataset. Display those.
 
 ```{r}
+spotify |> summarize(mean = mean(danceability), sd = sd(danceability))
 ```
 
 ### Task 4: Create a histogram of the danceability scores
@@ -26,6 +29,8 @@ Write code to calculate the mean standard deviation of the danceability scores i
 Write code to create a histogram of the danceability scores in the Spotify dataset, based on the example we did in class.
 
 ```{r}
+ggplot(data = spotify, aes(x = danceability)) + 
+  geom_histogram()
 ```
 
 ### Task 5: Add a line to the histogram for the mean danceability score
@@ -33,11 +38,17 @@ Write code to create a histogram of the danceability scores in the Spotify datas
 Write code to add a vertical line to the histogram for the mean danceability score, based on the example in class.
 
 ```{r}
+ggplot(data = spotify, aes(x = danceability)) + 
+  geom_histogram() +
+  geom_vline(aes(xintercept = mean(danceability)), color = "red", linetype = "dashed", size = 1)
+
 ```
 
 ### Task 6: Describe our results
 
 Write a few sentences about the distribution of danceability scores in the Spotify dataset. Is it a normal distribution, or is it skewed in one direction? What does the mean and distribution tell us about the songs in the dataset?
+
+Danceability skews negative (left), meaning the mean is less than the median. As such, most songs have a higher danceability score than 0.5; the data favors more danceable music.
 
 ### Task 7: Save Your Work and Put it on GitHub
 
