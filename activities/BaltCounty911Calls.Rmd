@@ -298,5 +298,5 @@ top_outliers |> kable(digits = 2)
 
 Based on our z-score analysis, what are some potential angles for reporting? What would your next steps be and what would you tell an editor about your findings?
 
-ANSWER HERE
+2 of the dates with the highest numbers were within one weekend in July, a result of a new batch of Fentanyl and laced drugs entering the city.
 
