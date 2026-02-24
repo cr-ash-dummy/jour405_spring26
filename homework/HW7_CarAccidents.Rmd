@@ -75,7 +75,7 @@ ggplot(accidents, aes(x = date, y = total)) +
 ### Task 1 (3 points)
 Looking at the time series visualization above, identify at least two noticeable patterns or anomalies. What questions would you want to investigate further based on this initial view of the data? How might these visual patterns translate into potential story angles?
 
-ANSWER HERE
+Accidents dropped in 2020, which isn't surprising, considering that drivership would naturally drop during a time that people aren't commuting to the workplace. 2021 saw some of the highest and lowest days for accidents; what's up with that? It definitely seems that accidents increased as drivers got back on the streets post-pandemic.
 
 The daily data is quite noisy, so let's also look at weekly patterns:
 
@@ -114,7 +114,7 @@ ggplot(accidents, aes(x = day_of_week, y = total)) +
 ### Task 2 (2 points)
 Based on the day-of-week analysis, which day(s) have the highest and lowest average accidents? Why might these patterns exist?
 
-ANSWER HERE
+Friday has the highest number, which makes sense, since there are likely the most people on the road -- daytime commutes to and from work cross transition into weekend night time risks of drunk driving. Monday, Tuesday and Wednesday all seem to be about equally low, but Monday has some particularly low outliers. Monday could be the lowest because of a lack of drunk driving incidents, but I'm sure there are more contributing factors than that.
 
 ## Calculating Z-Scores
 
@@ -161,7 +161,7 @@ unusual_days |>
 ### Task 3 (3 points)
 Choose one of the top 10 unusual days and research what might have happened on that date. Look for weather events, holidays, major incidents, or other factors that could explain the unusual number of accidents. Briefly describe your findings and how you would incorporate this context into a story.
 
-ANSWER HERE
+The day with the highest number of accidents was October 29, 2021. I found an photo story from NBC4 Washington about widespread flooding in Maryland, with 16 photos showing how the area was affected. Accidents definitely spiked due to the heavy rain and severe flooding. A story like the NBC4 coverage that focused on road incidents could include photographs of people trying to drive in torrential rain or through flooded streets.
 
 Let's visualize these unusual days:
 
@@ -210,7 +210,7 @@ unusual_dow |>
 ### Task 4 (3 points)
 Compare the days that have extreme z-scores overall versus those with extreme day-of-week z-scores. How do these lists differ? What journalistic insights can you draw from comparing these two different approaches to measuring "unusual" days?
 
-ANSWER HERE
+The day with the second highest incidents overall, Saturday, May 1, is only #8 in terms of its z-score, which puts into perspective just how many incidents there are on Saturdays compared to other days; except Friday, since Friday, October 29 tops both lists.
 
 Let's see how many unusual days we have for each day of the week:
 
@@ -289,7 +289,7 @@ unusual_monthly |>
 ### Task 5 (2 points)
 Based on the monthly pattern analysis, which months have the highest and lowest average accidents? Develop a hypothesis about why these seasonal patterns exist.
 
-ANSWER HERE
+October has the highest average number of accidents, while January has the lowest. October could have the highest for a number of reasons; Fall in Maryland often comes with rain, and driving on wet leaves can be very dangerous. Fall means shorter days and more driving in the dark, but that wouldn't explain why averages go down again in November, nor why accidents would be so low in January. Would accidents drop due to winter break and holidays? Why do accidents seem to climb consistently as a year progresses? I honestly have very few answers, this is really confounding me and demonstrates why civil engineering is such a complex practice. It combines sociology and psychology with hard science like physics and engineering.
 
 ## Identifying Extreme Outliers
 
@@ -314,9 +314,15 @@ if(nrow(extreme_outliers) > 0) {
 ### Task 6 (2 points)
 For the extreme outliers identified (z-scores beyond ±3), what do they have in common?
 
-ANSWER HERE
+Almost all of them are on Fridays or weekends, with the exception of Monday, November 29. All of the positive outliers are on Fridays or Saturdays specifically.
 
 ## Your Best Story Pitch
 
 ### Task 7 (5 points)
 Based on all the analyses performed, craft your best story pitch, including a headline and lede. Be sure to include what kinds of sources/people you'd talk to for the story.
+
+Car accidents spike on Fridays and Saturdays
+
+Of the top 10 days of 2021 with the most car accidents in Prince George's County, all were a Friday or a Saturday, according to new statistics by the Maryland Department of Transportation. Fridays and Saturdays saw a significantly higher average number of accidents and greater outliers. Average incidents on Sundays were higher than weekdays but lower than Fridays and Saturdays.
+
+For this story, I would look to interview civil engineers for insight on when driving is most dangerous, at least one MDOT spokesperson to inquire on how they gather their statistics and the ways the implement their findings, and local or state police on how they respond to car accidents.
