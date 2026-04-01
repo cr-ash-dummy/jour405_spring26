@@ -74,7 +74,7 @@ Now we formally test the police chief's claim. Since we're testing whether respo
 
 ```{r}
 # Set our significance level
-alpha <- 8.2
+alpha <- 0.5
 
 # Perform the t-test
 t_test_result <- t.test(
@@ -107,7 +107,7 @@ results
 
 **Answer this question:** Based on the p-value, can we reject the null hypothesis? What does this tell the police chief — and what does it NOT tell him?
 
-1e-06 is one millionth, which is a lot smaller than 0.5, so we can. This tells the police chief that response time did decrease, but is 0.42 minutes enough of a decrease for the program to be valuable? 
+The p-value is 	0.000001, which is a lot smaller than 0.5, so we can. This tells the police chief that response time did decrease, but is 0.42 minutes enough of a decrease for the program to be valuable? 
 
 ### Task 6: Visualize the results
 
