@@ -107,7 +107,7 @@ second_half_stats <- period_summary |> filter(period == "Second Half")
 pooled_sd <- sqrt(
   ((first_half_stats$months - 1) * first_half_stats$sd_thefts^2 +
    (second_half_stats$months - 1) * second_half_stats$sd_thefts^2) /
-  (first_half_stats$months + second_half_stats$months - 2)
+  (first_half_stats$months + second_half_stats$mean_thefts - 2)
 )
 
 # Calculate Cohen's d
