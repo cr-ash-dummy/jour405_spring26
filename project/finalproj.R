@@ -1,0 +1,6 @@
+library(tidyverse)
+library(readr)
+Movie_Data_File <- read_csv("Movie_Data_File.csv")
+View(Movie_Data_File)
+ggplot(data=Movie_Data_File, aes(x=Movie_Data_File$Watches, y=Movie_Data_File$Average_rating, group=1)) + geom_point()
+ggplot(data=Movie_Data_File, aes(x=Movie_Data_File$Likes, y=Movie_Data_File$Average_rating, group=1)) + geom_point()
