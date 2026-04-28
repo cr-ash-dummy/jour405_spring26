@@ -8,16 +8,112 @@ date: "2026-04-22"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Giving this another pass. I was getting an NA result likely because there are NA values somewhere in Average_rating.
-## Using cor.test() instead will ignore those NA values, so I can successfully test for correlation between average rating and watch count.
-## I tested it using owner rating, found that it worked, then tried finding the correlation between watch count and average rating. Cor.test() also gives a p-value.
+### Alright, back here again. Gonna try to run those tests starting with correlation.
 
 ```{r cars}
 library(tidyverse)
 movie_data <- read_csv("~/GitHub/jour405_spring26/project/Movie_Data_File.csv")
-cor.test(Movie_Data_File$Owner_rating, Movie_Data_File$Average_rating, method="pearson")
-cor.test(Movie_Data_File$Watches, Movie_Data_File$Average_rating, method="pearson")
+cor.test(movie_data$Watches, movie_data$Average_rating, method="pearson")
 ```
+### Like you said, that p-value is tiny because our data is huge. Having a massive dataset makes things like scatterplots really ugly, but I'm gonna make a regression model anyway. I'll use log10(Watches) like you advised.
+
+```{r}
+model <- lm(Average_rating ~ log10(Watches), data = movie_data)
+summary(model)
+```
+### Okay, let's take a closer look. P is tiny, which we already knew. Adjusted r-squared is 7.3%, which... could be worse? That log10() did some work, I think. The coefficient is small, so yeah, there's not too much of a correlation. At least it's not negative.
+
+### I want to make some graphs too, because I can't really tell what that log10() function does with just pure numbers.
+
+```{r}
+movie_data |>
+ggplot(aes(x = `Watches`, y = `Average_rating`)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(x = "Watches", y = "Average Rating")
+```
+### Now with the log10(). I also need to figure out some way to make the x-axis intervals into normal numbers, because I don't think the average reader can do scientific notation.
+
+```{r}
+movie_data |>
+ggplot(aes(x = log10(Watches), y = `Average_rating`)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(x = "Watches", y = "Average Rating")
+```
+### Hold on, what? Why is it doing that? Why does it look like that? The slope of the line is shallower and the intervals are, in fact, regular numbers, but they're single digits. I hate how the data is one big amorphous cloud, I hate the giant empty space in front of it and I hate how looking at a bunch of tiny dots clustered together makes me feel. Seriously, it looks really scary to me. 
+
+### I should run a regression model on the not-cleaned up data.
+
+```{r}
+model <- lm(Average_rating ~ Watches, data = movie_data)
+summary(model)
+```
+### Okay, I see why you recommended I clean it up. God I'm so tired of scientific notation!!!!! I'll do the histograms next.
+
+```{r}
+ggplot(movie_data, aes(x=Watches)) +
+  geom_histogram()
+```
+### Well, that's helpful.
+
+```{r}
+ggplot(movie_data, aes(x=log10(Watches))) +
+  geom_histogram()
+```
+### And this isn't really usable because I don't understand the units for x. Sigh.
+
+```{r}
+ggplot(movie_data, aes(x=Average_rating)) +
+  geom_histogram()
+```
+### Okay, this is something. I swear to god a second ago I thought of some solution to try and make a usable histogram for watch count, and then I forgot it. I'm really tired.
+
+```{r}
+IQR(movie_data$Watches)
+```
+
+### I have to remember what that means, but that's... fine.
+
+```{r}
+IQR(movie_data$Average_rating, na.rm=TRUE)
+```
+### Remembered I should send na.rm to TRUE if there's NA in the data. So the IQR for ratings is less than 1 star. 
+
+```{r}
+summary(movie_data$Watches)
+```
+### Wow, minimum of 2. I wonder what movie only has 2 watches.
+
+```{r}
+summary(movie_data$Average_rating)
+```
+### That's a high minimum! There really aren't any films in this 10,000+ row dataset with an average under 1? I guess that makes sense since the lowest possible rating is 0.5 on Letterboxd.
+
+### I said I'd do correlation, too, which I already did but we'll try it again with the cleaned-up data.
+
+```{r}
+cor.test(x=movie_data$Watches, y=movie_data$Average_rating, method="pearson")
+```
+
+### Now with log10()...
+
+```{r}
+cor.test(x=log10(movie_data$Watches), y=movie_data$Average_rating, method="pearson")
+```
+### Assuming I did that right, the correlation is a little higher.
+
+
+
+
+
+
+
+
+## Giving this another pass. I was getting an NA result likely because there are NA values somewhere in Average_rating.
+## Using cor.test() instead will ignore those NA values, so I can successfully test for correlation between average rating and watch count.
+## I tested it using owner rating, found that it worked, then tried finding the correlation between watch count and average rating. Cor.test() also gives a p-value.
+
 ### 3-5 tests I can run and reasoning:
 ### 1. Linear regression model testing ratings against watches. That would give me an understanding of their relationship. I need to remember that all I'm looking for is whether the most-watched films on Letterboxd are the most-liked.
 ### 2. Histogram of ratings. Is a histogram a test? It's a graph. I should graph how ratings are distributed across this sample of over 10,000 films, so we can understand what it means for a film to be highly rated; is it all that rare? Even if highly watched films are in fact highly rated, is that particularly valuable?
