@@ -9,7 +9,7 @@ Multiple regression analysis is a statistical method used to understand the rela
 
 ```{r setup}
 library(tidyverse)
-#install.packages('corrplot')
+install.packages('corrplot')
 library(corrplot)
 ```
 
@@ -54,7 +54,7 @@ The coefficients tell us the estimated effect of each independent variable on th
 
 Is this a useful model, based on what you've seen? Why?
 
-ANSWER HERE
+I don't know. Points scored is statistically significant and indicates that each point scored is associated with a win increase by about 0.039, which I interpret as 4%, is that correct? A 4% increased chance of winning, is that what we're measuring? Suddenly I've forgotten how coefficients work. The other variables are outside the threshold of significance, but you said we're not looking for the One True Variable, we're passing judgment on the model over all. I don't understand how that works.
 
 ## Correlation Analysis
 
@@ -80,8 +80,10 @@ The results from our correlation analysis show the strength of the relationships
 
 Which of these three factors - Yards Gained, Takeaways and Points Scored - have the most impact on wins? Are there any that do not seem impactful at all?
 
-ANSWER HERE
+Points scored has the highest impact on wins, which makes sense, since you need to score points to win. Yards gained has the least impact, but not necessarily zero. Also, I like this visualization way more than looking at the numbers.
 
 ## Using the Model (3 points)
 
 Without using the words "multiple regression model", describe how you could use this model to cover a team or game.
+
+I'd call it a win prediction model. Does this sound low effort? It isn't. I don't really understand what we're talking about today. And I guess I'd explain how this model compares various factors to win count and explain the specific impact each factor has on win count, and from there try to extrapolate game results. Everyone else updated the model to be takeaways, giveaways and point scored, which has a good r-squared. Preventing giveaways might be more important than gaining yards?
