@@ -28,7 +28,7 @@ cor.test(x=log10(movie_data$Watches), y=movie_data$Average_rating, method="pears
 summary(movie_data$Average_rating)
 summary(movie_data$Watches)
 ```
-### The overall average rating is 3.26. The rating scale on Letterboxd is a ten-point scale allowing ratings from 0.5 to 5. There's no midpoint rating; a rating of 3 stars falls on the upper half of the rating scale. Ratings could be said to trend slightly positive. 
+### The overall average rating is 3.26. The rating scale on Letterboxd is a ten-point scale allowing ratings from 0.5 to 5. There's no midpoint rating; a rating of 3 stars falls on the upper half of the rating scale. Generally, ratings could be said to trend slightly positive. 
 
 ### The average watch count is significantly higher than the median, meaning it's being influenced by some particularly high outliers. Being higher than even the third quarter, it's likely that the maximum/highest data point of over 5 million watches for a single film is to blame. The median is less than 20,000, which gives a more realistic understanding of watch count distribution. 
 
@@ -52,7 +52,7 @@ model <- lm(Average_rating ~ log10(Watches), data = movie_data)
 summary(model)
 ```
 
-### An adjusted r-squared of 0.7 illustrates that very little of the variance in average rating is determined by watch count. Let's visualize this model:
+### An adjusted r-squared of 0.7 illustrates that very little of the variance in average rating is determined by watch count. Moreover, a coefficient of 0.15 shows a very slight positive relationship between rating and watch count. Let's visualize this model:
 
 ```{r}
 movie_data |>
@@ -78,4 +78,6 @@ mean(movie_data$Average_rating, na.rm = TRUE)
 ```
 ### The average rating for the top 100 most watched films in the dataset is slightly higher than the overall average.
 
-### All of this analysis combined leads me to believe that this data isn't particularly conducive to a story. While there is a mild relationship between watch count and average rating, the lukewarm correlation raises more questions than it answers. As such, if I were to prepare a story on the highest-rated films on Letterboxd, I would prefer to investigate if there are any commonalities between them. What kinds of films do Letterboxd users like? Are there aspects of a film that could help predict how it will perform critically before it's even released? This dataset does include information on director, cast, runtime, genre and language for each film, so an analysis of this kind is feasible.
+### All of this analysis combined leads me to believe that this data isn't particularly conducive to a story. While there is a mild relationship between watch count and average rating, the lukewarm correlation of only 0.27 raises more questions than it answers. An adjusted r-squared of 0.7 indicates that watch count has little bearing on the variance in rating. 
+
+### As such, if I were to prepare a story on the highest-rated films on Letterboxd, I would prefer to investigate if there are any commonalities between them. What kinds of films do Letterboxd users like? Are there aspects of a film that could help predict how it will perform critically before it's even released? This dataset does include information on director, cast, runtime, genre and language for each film, so an analysis of this kind is feasible.
